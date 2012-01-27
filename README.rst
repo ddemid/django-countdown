@@ -11,21 +11,23 @@ Installation
 ====================
 
 
+settings.py::
 
     # settings.py
     # ============
-	INSTALLED_APPS = (
+
+    INSTALLED_APPS = (
         ...
-		'countdown',
-		...
-	)
-	MIDDLEWARE_CLASSES = (
+        'countdown',
         ...
-		'countdown.middleware.CountdownMiddleware',
-	)
-	
-	COUNTDOWN_TARGET_DATE = datetime.datetime(2011, 11, 1, 11, 11, 11, 111111)
-	
+    )
+    MIDDLEWARE_CLASSES = (
+        ...
+        'countdown.middleware.CountdownMiddleware',
+    )
+
+    COUNTDOWN_TARGET_DATE = datetime.datetime(2011, 11, 1, 11, 11, 11, 111111)
+
 
 COUNTDOWN_TARGET_DATE is python datetime object which represents the countdown target date.
 
