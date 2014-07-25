@@ -1,6 +1,7 @@
 from datetime import datetime
+from django.shortcuts  import render_to_response
+from django.template import RequestContext
 from django.conf import settings
-from django.views.generic.simple import direct_to_template
 from django.core.urlresolvers import reverse
 
 
@@ -12,20 +13,17 @@ class CountdownMiddleware(object):
             
             # Allow to login in admin part
             # Allow access to all authentificated users
-            if request.path.startswith(reverse('admin:index')) or \
+            if request.path_info.startswith(reverse('admin:index')) or \
                                     request.user.is_authenticated():
                 return response
             
             
             td = settings.COUNTDOWN_TARGET_DATE - datetime.now()
-            return direct_to_template(request, "countdown/countdown.html", {
+            return render_to_response("countdown/countdown.html", {
                     'countdown_sec': td.seconds % 60,
                     'countdown_min': (td.seconds / 60) % 60 ,
                     'countdown_hour': (td.seconds / (60*60) % 24 ),
                     'countdown_day': (td.days),
-
-
-
-                    })
+                    }, context_instance=RequestContext(request))
         else:
             return response
